@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+	  <Authors>Michael Lakerveld</Authors>
+	  <Company>Lakerfield</Company>
+	  <Copyright>Michael Lakerveld, QuestPDF.Barcodes contributors</Copyright>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\QuestPdf.Barcodes\QuestPdf.Barcodes.csproj" />
+  </ItemGroup>
+
+</Project>
