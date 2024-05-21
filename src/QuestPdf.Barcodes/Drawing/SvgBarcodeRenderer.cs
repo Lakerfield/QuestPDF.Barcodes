@@ -1,4 +1,4 @@
-﻿using Barcoder.Renderers;
+using Barcoder.Renderers;
 using Barcoder;
 using SvgLib;
 using System;
@@ -20,13 +20,10 @@ namespace QuestPDF.Drawing
 
     private readonly BarcodeRenderOptions _options;
 
-    public SvgBarcodeRenderer(BarcodeRenderOptions options = null)
+    public SvgBarcodeRenderer(BarcodeRenderOptions? options = null)
     {
       _options = options ?? new BarcodeRenderOptions();
     }
-
-    private bool IncludeEanContent(IBarcode barcode)
-        => _options.IncludeEanContentAsText && (barcode.Metadata.CodeKind == BarcodeType.EAN13 || barcode.Metadata.CodeKind == BarcodeType.EAN8);
 
     public string Render(IBarcode barcode, Size size)
     {
@@ -41,10 +38,18 @@ namespace QuestPDF.Drawing
 
     private string Render1D(IBarcode barcode, Size size)
     {
-      var document = SvgDocument.Create();
-      int height = IncludeEanContent(barcode) ? 55 : 50;
       int margin = _options.CustomMargin ?? barcode.Margin;
 
+      double width = barcode.Bounds.X + 2 * margin;
+      double height = size.Height / size.Width * width;
+      double heightShort = height*4/5;
+      double heightText = height - heightShort;
+      double fontsize = heightText / 0.9d;
+      double textWidth = (barcode.Content.Length + 2) * 0.6d * fontsize;
+      int textStart = (int)Math.Floor(((barcode.Bounds.X - textWidth) / 2) );
+      int textEnd = (int)Math.Ceiling(((barcode.Bounds.X + textWidth) / 2) );
+
+      var document = SvgDocument.Create();
       document.ViewBox = new SvgViewBox
       {
         Left = 0,
@@ -67,22 +72,25 @@ namespace QuestPDF.Drawing
         }
 
         SvgLine line;
-        int lineHeight = height;
-        if (IncludeEanContent(barcode))
+        double lineHeight = height;
+        if (_options.IncludeContentAsText)
         {
-          if (barcode.Metadata.CodeKind == BarcodeType.EAN13)
+          switch (barcode.Metadata.CodeKind)
           {
-            if (!Ean13LongerBars.Contains(x))
-            {
-              lineHeight = 48;
-            }
-          }
-          else
-          {
-            if (!Ean8LongerBars.Contains(x))
-            {
-              lineHeight = 48;
-            }
+            case BarcodeType.EAN13:
+              if (!Ean13LongerBars.Contains(x))
+                lineHeight = heightShort;
+              break;
+
+            case BarcodeType.EAN8:
+              if (!Ean8LongerBars.Contains(x))
+                lineHeight = heightShort;
+              break;
+
+            default:
+              if (x >= textStart && x <= textEnd)
+                lineHeight = heightShort;
+              break;
           }
         }
 
@@ -105,36 +113,43 @@ namespace QuestPDF.Drawing
         prevBar = true;
       }
 
-      if (IncludeEanContent(barcode))
+      if (_options.IncludeContentAsText)
       {
-        if (barcode.Metadata.CodeKind == BarcodeType.EAN13)
+        var textBase = height - (heightText * 0.1d);
+        switch (barcode.Metadata.CodeKind)
         {
-          AddText(document, 4, 54.5D, barcode.Content.Substring(0, 1));
-          AddText(document, 21, 54.5D, barcode.Content.Substring(1, 6));
-          AddText(document, 67, 54.5D, barcode.Content.Substring(7));
+          case BarcodeType.EAN13:
+            AddText(document, 6 + margin, textBase, barcode.Content.Substring(0, 1), fontsize);
+            AddText(document, 26 + margin, textBase, barcode.Content.Substring(1, 6), fontsize);
+            AddText(document, 70 + margin, textBase, barcode.Content.Substring(7), fontsize);
+
+            break;
+
+          case BarcodeType.EAN8:
+            AddText(document, 17 + margin, textBase, barcode.Content.Substring(0, 4), fontsize);
+            AddText(document, 49 + margin, textBase, barcode.Content.Substring(4), fontsize);
+            break;
+
+          default:
+            AddText(document, barcode.Bounds.X / 2d + margin, textBase, barcode.Content, fontsize);
+            break;
         }
-        else
+
+        static void AddText(SvgDocument doc, double x, double y, string t, double fontSize)
         {
-          AddText(document, 18, 54.5D, barcode.Content.Substring(0, 4));
-          AddText(document, 50, 54.5D, barcode.Content.Substring(4));
+          SvgText text = doc.AddText();
+          text.FontFamily = Fonts.Lato;
+          text.Text = t;
+          text.X = x;
+          text.Y = y;
+          text.StrokeWidth = 0;
+          text.Fill = "#000000";
+          text.FontSize = fontSize;
+          text.TextAnchor = SvgTextAnchor.Middle;
         }
       }
 
       return document.Save();
-    }
-
-    private void AddText(SvgDocument doc, double x, double y, string t)
-    {
-      SvgText text = doc.AddText();
-      text.FontFamily = Fonts.Lato;
-      text.Text = t;
-      text.X = x;
-      text.Y = y;
-      text.StrokeWidth = 0;
-      text.Fill = "#000000";
-      text.FontSize = 8D;
-      text.TextAnchor = SvgTextAnchor.Middle;
-      var l = text.TextLength;
     }
 
     private string Render2D(IBarcode barcode, Size size)

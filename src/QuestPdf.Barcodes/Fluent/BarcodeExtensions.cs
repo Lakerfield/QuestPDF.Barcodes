@@ -1,4 +1,4 @@
-﻿using QuestPDF.Infrastructure;
+using QuestPDF.Infrastructure;
 using Barcoder;
 using QuestPDF.Drawing;
 
@@ -10,11 +10,7 @@ public static class BarcodeExtensions
   {
     container.Svg(size =>
     {
-      var renderer = new SvgBarcodeRenderer(options ?? new BarcodeRenderOptions()
-      {
-        CustomMargin = 0,
-        IncludeEanContentAsText = true
-      });
+      var renderer = new SvgBarcodeRenderer(options ?? new BarcodeRenderOptions());
 
       var svg = renderer.Render(barcode, size);
       return svg;
@@ -31,9 +27,9 @@ public static class BarcodeExtensions
     container.Barcode(Barcoder.Codebar.CodabarEncoder.Encode(content), options);
   }
 
-  public static void BarcodeCode128(this IContainer container, string content, bool includeChecksum = true, bool gs1ModeEnabled = false)
+  public static void BarcodeCode128(this IContainer container, string content, bool includeChecksum = true, bool gs1ModeEnabled = false, BarcodeRenderOptions? options = null)
   {
-    container.Barcode(Barcoder.Code128.Code128Encoder.Encode(content, includeChecksum, gs1ModeEnabled));
+    container.Barcode(Barcoder.Code128.Code128Encoder.Encode(content, includeChecksum, gs1ModeEnabled), options);
   }
 
   public static void BarcodeCode39(this IContainer container, string content, bool includeChecksum, bool fullAsciiMode, BarcodeRenderOptions? options = null)

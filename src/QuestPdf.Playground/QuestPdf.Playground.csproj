@@ -11,6 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SixLabors.Fonts" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\QuestPdf.Barcodes\QuestPdf.Barcodes.csproj" />
   </ItemGroup>
 
