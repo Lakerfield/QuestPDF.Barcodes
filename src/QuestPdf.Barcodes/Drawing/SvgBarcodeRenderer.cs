@@ -120,7 +120,7 @@ namespace QuestPDF.Drawing
         }
       }
 
-      return document.OuterXml;
+      return document.Save();
     }
 
     private void AddText(SvgDocument doc, double x, double y, string t)
@@ -171,7 +171,7 @@ namespace QuestPDF.Drawing
         }
       }
 
-      return document.OuterXml;
+      return document.Save();
     }
   }
 }
