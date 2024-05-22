@@ -15,6 +15,7 @@
     <Nullable>enable</Nullable>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/Lakerfield/QuestPDF.Barcodes</PackageProjectUrl>
+    <PackageDescription>QuestPDF.Barcodes is an open-source library for rendering barcodes in svg format into a QuestPDF document</PackageDescription>
     <IncludeSymbols>True</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
