@@ -4,6 +4,7 @@
     <OutputType>Library</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>QuestPDF</RootNamespace>
+    <AssemblyName>QuestPDF.Barcodes</AssemblyName>
     <Authors>Michael Lakerveld</Authors>
     <Company>Lakerfield</Company>
     <Copyright>Michael Lakerveld, QuestPDF.Barcodes contributors</Copyright>
