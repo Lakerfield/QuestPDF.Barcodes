@@ -1,6 +1,7 @@
 using QuestPDF.Infrastructure;
 using Barcoder;
 using QuestPDF.Drawing;
+using SkiaSharp;
 
 namespace QuestPDF.Fluent;
 
@@ -8,12 +9,23 @@ public static class BarcodeExtensions
 {
   public static void Barcode(this IContainer container, IBarcode barcode, BarcodeRenderOptions? options = default)
   {
-    container.Svg(size =>
+    container.Canvas((SKCanvas canvas, Size size) =>
     {
       var renderer = new SvgBarcodeRenderer(options ?? new BarcodeRenderOptions());
 
-      var svg = renderer.Render(barcode, size);
-      return svg;
+      using var ms = new MemoryStream();
+      renderer.Render(barcode, size, ms);
+      ms.Position = 0;
+
+      var skSvg = new SKSvg();
+      skSvg.Load(ms);
+
+      float scaleX = size.Width / skSvg.Picture.CullRect.Width;
+      float scaleY = size.Height / skSvg.Picture.CullRect.Height;
+      float scale = (scaleX < scaleY) ? scaleX : scaleY;
+      canvas.Scale(scale, scale);
+
+      canvas.DrawPicture(skSvg.Picture);
     });
   }
 

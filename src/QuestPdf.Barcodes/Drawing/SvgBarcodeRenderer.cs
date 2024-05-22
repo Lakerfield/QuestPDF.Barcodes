@@ -25,18 +25,18 @@ namespace QuestPDF.Drawing
       _options = options ?? new BarcodeRenderOptions();
     }
 
-    public string Render(IBarcode barcode, Size size)
+    public string Render(IBarcode barcode, Size size, Stream stream)
     {
       barcode = barcode ?? throw new ArgumentNullException(nameof(barcode));
       if (barcode.Bounds.Y == 1)
-        return Render1D(barcode, size);
+        return Render1D(barcode, size, stream);
       else if (barcode.Bounds.Y > 1)
-        return Render2D(barcode, size);
+        return Render2D(barcode, size, stream);
       else
         throw new NotSupportedException($"Y value of {barcode.Bounds.Y} is invalid");
     }
 
-    private string Render1D(IBarcode barcode, Size size)
+    private string Render1D(IBarcode barcode, Size size, Stream stream)
     {
       int margin = _options.CustomMargin ?? barcode.Margin;
 
@@ -149,10 +149,11 @@ namespace QuestPDF.Drawing
         }
       }
 
-      return document.Save();
+      document.Save(stream);
+      return string.Empty;
     }
 
-    private string Render2D(IBarcode barcode, Size size)
+    private string Render2D(IBarcode barcode, Size size, Stream stream)
     {
       int margin = _options.CustomMargin ?? barcode.Margin;
 
@@ -186,7 +187,8 @@ namespace QuestPDF.Drawing
         }
       }
 
-      return document.Save();
+      document.Save(stream);
+      return string.Empty;
     }
   }
 }
