@@ -1,0 +1,34 @@
+name: Build and Publish .NET NuGet Package
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build specific projects
+      run: |
+        dotnet build ./src/QuestPdf.Barcodes/QuestPdf.Barcodes.csproj --configuration Release --no-restore
+
+    - name: Pack specific projects
+      run: |
+        dotnet pack ./src/QuestPdf.Barcodes/QuestPdf.Barcodes.csproj --configuration Release --no-build --output ./nupkg /p:PackageVersion=${{ github.event.release.tag_name }}
+
+    - name: Publish NuGet package
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      run: dotnet nuget push ./nupkg/*.nupkg --api-key $NUGET_API_KEY --source https://api.nuget.org/v3/index.json
