@@ -10,6 +10,20 @@
 - Seamless integration with QuestPDF.
 - Simple and intuitive API.
 
+## Versions
+
+To accommodate the breaking changes introduced in QuestPDF version 2024.3.0, this repository provides two versions of the NuGet package:
+
+### Version 2024.3.x
+
+- Utilizes the `.svg()` render method in QuestPDF.
+- Aligns a 2D barcode to the center of the box.
+
+### Version 2023.1.x
+
+- Utilizes the `.canvas()` render method in QuestPDF.
+- Aligns a 2D barcode to the left of the box.
+
 ## Installation
 
 You can install the package via NuGet Package Manager:
