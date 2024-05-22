@@ -2,20 +2,20 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFrameworks>net8.0;net6.0;netstandard2.0</TargetFrameworks>
     <RootNamespace>QuestPDF</RootNamespace>
     <AssemblyName>QuestPDF.Barcodes</AssemblyName>
+    <LangVersion>10</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
     <Authors>Michael Lakerveld</Authors>
     <Company>Lakerfield</Company>
     <Copyright>Michael Lakerveld, QuestPDF.Barcodes contributors</Copyright>
-    <PackageTags>PDF;Barcode</PackageTags>
     <RepositoryUrl>https://github.com/Lakerfield/QuestPDF.Barcodes</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/Lakerfield/QuestPDF.Barcodes</PackageProjectUrl>
-    <PackageDescription>QuestPDF.Barcodes is an open-source library for rendering barcodes in svg format into a QuestPDF document</PackageDescription>
+    <PackageTags>Barcode;PDF;PDF Barcode;C#;dotnet;csharp;.NET;Logistic;windows;linux;mac;open-source;open source;free;file;SVG</PackageTags>
     <IncludeSymbols>True</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
