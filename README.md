@@ -24,7 +24,7 @@ Or via the NuGet Package Manager in Visual Studio:
 2. Select "Manage NuGet Packages..."
 3. Search for "QuestPdf.Barcodes" and install the package.
 
-## Sample
+## Generated barcodes
 
 ![My Image](assets/barcode-samples.jpg)
 
