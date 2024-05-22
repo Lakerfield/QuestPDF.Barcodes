@@ -13,7 +13,6 @@
     <RepositoryType>git</RepositoryType>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/Lakerfield/QuestPDF.Barcodes</PackageProjectUrl>
     <IncludeSymbols>True</IncludeSymbols>
@@ -28,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-		<PackageReference Include="Barcoder" Version="[2.0.0,)" />
+    <PackageReference Include="Barcoder" Version="[2.0.0,)" />
     <PackageReference Include="QuestPDF" Version="[2024.3.6,)" />
     <PackageReference Include="SvgLib" Version="[1.0.0.3,)" />
   </ItemGroup>
