@@ -11,5 +11,7 @@ namespace QuestPDF.Drawing
     public bool IncludeContentAsText { get; set; } = true;
 
     public int? CustomMargin { get; set; } = null;
+    public float StrokeWidthCorrection { get; set; } = 0.2f;
+    public int? CustomRenderResolution { get; set; } = null;
   }
 }

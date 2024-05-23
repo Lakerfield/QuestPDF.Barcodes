@@ -97,7 +97,7 @@ namespace QuestPDF.Drawing
         if (prevBar)
         {
           line = document.AddLine();
-          line.StrokeWidth = 1.5;
+          line.StrokeWidth = 1.5f - _options.StrokeWidthCorrection;
           line.X1 = line.X2 = x + margin - 0.25;
           line.Y1 = 0;
           line.Y2 = lineHeight;
@@ -105,6 +105,7 @@ namespace QuestPDF.Drawing
         else
         {
           line = document.AddLine();
+          line.StrokeWidth = 1f - _options.StrokeWidthCorrection;
           line.X1 = line.X2 = x + margin;
           line.Y1 = 0;
           line.Y2 = lineHeight;

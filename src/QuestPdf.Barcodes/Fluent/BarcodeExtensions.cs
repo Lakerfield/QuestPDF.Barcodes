@@ -9,15 +9,16 @@ public static class BarcodeExtensions
 {
   public static void Barcode(this IContainer container, IBarcode barcode, BarcodeRenderOptions? options = default)
   {
+    options ??= new BarcodeRenderOptions();
     container.Canvas((SKCanvas canvas, Size size) =>
     {
-      var renderer = new SvgBarcodeRenderer(options ?? new BarcodeRenderOptions());
+      var renderer = new SvgBarcodeRenderer(options);
 
       using var ms = new MemoryStream();
       renderer.Render(barcode, size, ms);
       ms.Position = 0;
 
-      var skSvg = new SKSvg();
+      var skSvg = options.CustomRenderResolution.HasValue ? new SKSvg(options.CustomRenderResolution.Value) : new SKSvg();
       skSvg.Load(ms);
 
       float scaleX = size.Width / skSvg.Picture.CullRect.Width;
