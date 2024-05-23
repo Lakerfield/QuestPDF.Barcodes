@@ -40,7 +40,7 @@ Or via the NuGet Package Manager in Visual Studio:
 
 ## Generated barcodes
 
-![My Image](https://github.com/Lakerfield/QuestPDF.Barcodes/raw/main/assets/barcode-samples.jpg)
+![My Image](https://raw.githubusercontent.com/Lakerfield/QuestPDF.Barcodes/main/assets/barcode-samples.jpg)
 
 ## Usage
 
