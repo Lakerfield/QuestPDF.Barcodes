@@ -85,9 +85,9 @@ public static class BarcodeExtensions
     container.Barcode(Barcoder.RoyalMail.RoyalMailFourStateCodeEncoder.Encode(content), options);
   }
 
-  public static void BarcodeTwoToFive(this IContainer container, string content, bool interleaved, bool includeChecksum)
+  public static void BarcodeTwoToFive(this IContainer container, string content, bool interleaved, bool includeChecksum, BarcodeRenderOptions? options = null)
   {
-    container.Barcode(Barcoder.TwoToFive.TwoToFiveEncoder.Encode(content, interleaved, includeChecksum));
+    container.Barcode(Barcoder.TwoToFive.TwoToFiveEncoder.Encode(content, interleaved, includeChecksum), options);
   }
 
   public static void BarcodeUpcA(this IContainer container, string content, BarcodeRenderOptions? options = null)
