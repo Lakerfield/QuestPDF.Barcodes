@@ -1,14 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using QuestPDF.Helpers;
 
 namespace QuestPDF.Drawing
 {
   public sealed class BarcodeRenderOptions
   {
     public bool IncludeContentAsText { get; set; } = true;
+
+    public string Font { get; set; } = Fonts.Lato;
 
     public int? CustomMargin { get; set; } = null;
 

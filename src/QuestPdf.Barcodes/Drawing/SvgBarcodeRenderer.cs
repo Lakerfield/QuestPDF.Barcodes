@@ -136,10 +136,10 @@ namespace QuestPDF.Drawing
             break;
         }
 
-        static void AddText(SvgDocument doc, double x, double y, string t, double fontSize)
+        void AddText(SvgDocument doc, double x, double y, string t, double fontSize)
         {
           SvgText text = doc.AddText();
-          text.FontFamily = Fonts.Lato;
+          text.FontFamily = string.IsNullOrWhiteSpace(_options.Font) ? Fonts.Lato : _options.Font;
           text.Text = t;
           text.X = x;
           text.Y = y;
