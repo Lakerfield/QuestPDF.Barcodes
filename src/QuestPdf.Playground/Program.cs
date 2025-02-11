@@ -1,3 +1,4 @@
+using QuestPDF.Companion;
 using QuestPDF.Drawing;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
@@ -13,7 +14,7 @@ namespace QuestPdf.Playground
     {
       //TestFontSize();
 
-      //QuestPDF.Settings.License = LicenseType.;
+      QuestPDF.Settings.License = LicenseType.Community;
 
       var document = Document.Create(container =>
       {
@@ -51,7 +52,7 @@ namespace QuestPdf.Playground
       //document.GeneratePdf("hello.pdf");
 
       // use the following invocation
-      document.ShowInPreviewer(12500);
+      document.ShowInCompanion();
     }
 
     private static void TestFontSize()
