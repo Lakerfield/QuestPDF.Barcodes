@@ -1,8 +1,8 @@
+using QuestPDF.Companion;
 using QuestPDF.Drawing;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
-using QuestPDF.Previewer;
 using SixLabors.Fonts;
 
 namespace QuestPdf.Playground
@@ -51,7 +51,7 @@ namespace QuestPdf.Playground
       //document.GeneratePdf("hello.pdf");
 
       // use the following invocation
-      document.ShowInPreviewer(12500);
+      document.ShowInCompanion();
     }
 
     private static void TestFontSize()
